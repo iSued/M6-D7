@@ -35,10 +35,14 @@ class Model {
     if (!id) {
       throw new Error("Hey you did not provided id!");
     }
+    const fields = {
+      name: "Luis",
+      lastname: "Ordonez",
+    };
     const entries = Object.entries(fields); // [['name','Luis'],['lastname','Ordonez']] => name='Luis' ,
 
     const query = `UPDATE ${this.name} SET ${entries
-      .map(([column, value]) => `${column}='${value}'`)
+      .map((arr) => `${arr[0]}='${arr[0]}'`)
       .join(",")} WHERE id=${parseInt(id)};`;
     const response = await this.run(query);
     return response;

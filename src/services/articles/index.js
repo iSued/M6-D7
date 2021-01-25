@@ -1,12 +1,14 @@
 const router = require("express").Router();
 
-const Model = require("../../utils/model")
+const Model = require("../../utils/model");
 
-const Classes = new Model('classes');
-
+const Classes = new Model("classes");
+const { query } = require("../../utils/query");
 router.get("/", async (req, res, next) => {
   try {
-    const response  = await Classes.findOne();
+    const query = "SELECT....";
+    const result = await query(query);
+    // const response  = await Classes.findOne();
     res.send(response);
   } catch (e) {
     console.log(e);
@@ -16,7 +18,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const {rows} = await Classes.findById(req.params.id);
+    const { rows } = await Classes.findById(req.params.id);
     res.send(rows);
   } catch (e) {
     console.log(e);
@@ -27,17 +29,16 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const response = await Classes.save(req.body);
-    res.send(response)
+    res.send(response);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500).send(e.message);
   }
-
 });
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const response = await Classes.findByIdAndUpdate(req.params.id,req.body)
+    const response = await Classes.findByIdAndUpdate(req.params.id, req.body);
     res.send(response);
   } catch (e) {
     res.status(500).send(e);
